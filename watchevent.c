@@ -1192,7 +1192,7 @@ static int do_events(int fd)
 			system("echo 100 > /sys/class/leds/green/delay_off");
 			system("echo 100 > /sys/class/leds/red/delay_on");
 			system("echo 100 > /sys/class/leds/red/delay_off");
-			printf("%d seconds passed\n");
+			printf("%d seconds  passed\n", pressed);
 		}
 		rd = read(fd, ev, sizeof(ev));
 
@@ -1222,8 +1222,10 @@ static int do_events(int fd)
 						printf("run factory reset with %s\n", default_cmd);
 						system(default_cmd);
 					}
-					printf("run reboot with %s\n", reset_cmd);
-					system(reset_cmd);
+					else {
+						printf("run reboot with %s\n", reset_cmd);
+						system(reset_cmd);
+					}
 					return EXIT_SUCCESS;
 				}
 				if ( (ev[i].value == 1) && (pressed == 0) ) {
